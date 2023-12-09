@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def home(request):
-    return HttpResponse("Canvas comes here!")###render(request, 'Hello!')
+    return render(request, 'joulukortti/canvas.html')
