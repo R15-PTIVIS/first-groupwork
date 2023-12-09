@@ -8,44 +8,47 @@
       border: 1px solid #000;
     }
   </style>
-  <title>Simple Drawing App</title>
+  <title>Canvas Drawing App</title>
 </head>
 <body>
   <canvas id="drawingCanvas" width="800" height="400"></canvas>
+  <button id="downloadBtn">Download Drawing</button>
 
   <script>
-    // Get the canvas element and its 2d context
     const canvas = document.getElementById('drawingCanvas');
     const ctx = canvas.getContext('2d');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-    // Set up initial drawing properties
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#000';
 
-    // Flag to indicate whether the mouse is being held down
     let isDrawing = false;
 
-    // Event listener for mouse down
     canvas.addEventListener('mousedown', (e) => {
       isDrawing = true;
       draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
     });
 
-    // Event listener for mouse move
     canvas.addEventListener('mousemove', (e) => {
       if (isDrawing) {
         draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
       }
     });
 
-    // Event listener for mouse up
     canvas.addEventListener('mouseup', () => {
       isDrawing = false;
-      ctx.beginPath(); // Start a new path when mouse is lifted
+      ctx.beginPath();
     });
 
-    // Function to draw on the canvas
+    downloadBtn.addEventListener('click', () => {
+      const imageData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imageData;
+      link.download = 'drawing.png';
+      link.click();
+    });
+
     function draw(x, y) {
       ctx.lineTo(x, y);
       ctx.stroke();
