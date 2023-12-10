@@ -1,60 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     canvas {
       border: 1px solid #000;
     }
+
+    #colorPickerContainer {
+      margin-top: 10px;
+    }
+
+    .colorSwatch {
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      border: 1px solid #000;
+      display: inline-block;
+    }
   </style>
-  <title>Canvas Drawing App</title>
+  <title>Canvas Drawing App with Color Picker</title>
 </head>
 <body>
   <canvas id="drawingCanvas" width="800" height="400"></canvas>
+  <div id="colorPickerContainer">
+    Background Color Picker:
+    <div class="background-color colorSwatch" style="background-color: #000" data-color="#000"></div>
+    <div class="background-color colorSwatch" style="background-color: #ff0000" data-color="#ff0000"></div>
+    <div class="background-color colorSwatch" style="background-color: #00ff00" data-color="#00ff00"></div>
+    <div class="background-color colorSwatch" style="background-color: #0000ff" data-color="#0000ff"></div>
+    <div class="background-color colorSwatch" style="background-color: #ffff00" data-color="#ffff00"></div>
+    <div class="background-color colorSwatch" style="background-color: #ff00ff" data-color="#ff00ff"></div>
+    <div class="background-color colorSwatch" style="background-color: #00ffff" data-color="#00ffff"></div>
+    <div class="background-color colorSwatch" style="background-color: #ffa500" data-color="#ffa500"></div>
+    <div class="background-color colorSwatch" style="background-color: #808080" data-color="#808080"></div>
+    <div class="background-color colorSwatch" style="background-color: #ffffff" data-color="#ffffff"></div>
+    <div class="background-color colorSwatch" style="background-color: #a52a2a" data-color="#a52a2a"></div>
+    <div class="background-color colorSwatch" style="background-color: #008000" data-color="#008000"></div>
+<br>
+    Line Color Picker:
+    <div class="line-color colorSwatch" style="background-color: #000" data-color="#000"></div>
+    <div class="line-color colorSwatch" style="background-color: #ff0000" data-color="#ff0000"></div>
+    <div class="line-color colorSwatch" style="background-color: #00ff00" data-color="#00ff00"></div>
+    <div class="line-color colorSwatch" style="background-color: #0000ff" data-color="#0000ff"></div>
+    <div class="line-color colorSwatch" style="background-color: #ffff00" data-color="#ffff00"></div>
+    <div class="line-color colorSwatch" style="background-color: #ff00ff" data-color="#ff00ff"></div>
+    <div class="line-color colorSwatch" style="background-color: #00ffff" data-color="#00ffff"></div>
+    <div class="line-color colorSwatch" style="background-color: #ffa500" data-color="#ffa500"></div>
+    <div class="line-color colorSwatch" style="background-color: #808080" data-color="#808080"></div>
+    <div class="line-color colorSwatch" style="background-color: #ffffff" data-color="#ffffff"></div>
+    <div class="line-color colorSwatch" style="background-color: #a52a2a" data-color="#a52a2a"></div>
+    <div class="line-color colorSwatch" style="background-color: #008000" data-color="#008000"></div>
+  </div>
+
   <button id="downloadBtn">Download Drawing</button>
 
-  <script>
-    const canvas = document.getElementById('drawingCanvas');
-    const ctx = canvas.getContext('2d');
-    const downloadBtn = document.getElementById('downloadBtn');
+  <!-- Script for Canvas Drawing -->
+  <script src="{% static 'js/canvas-drawing.js' %}"></script>
 
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#000';
+  <!-- Script for Color Picker -->
+  <script src="{% static 'js/color-picker.js' %}"></script>
 
-    let isDrawing = false;
-
-    canvas.addEventListener('mousedown', (e) => {
-      isDrawing = true;
-      draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
-      if (isDrawing) {
-        draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-      }
-    });
-
-    canvas.addEventListener('mouseup', () => {
-      isDrawing = false;
-      ctx.beginPath();
-    });
-
-    downloadBtn.addEventListener('click', () => {
-      const imageData = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = imageData;
-      link.download = 'drawing.png';
-      link.click();
-    });
-
-    function draw(x, y) {
-      ctx.lineTo(x, y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-    }
-  </script>
+  <!-- Script for Download Functionality -->
+  <script src="{% static 'js/download-drawing.js' %}"></script>
 </body>
 </html>
