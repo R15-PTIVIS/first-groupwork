@@ -3,4 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 def home(request):
+    return render(request, 'joulukortti/home.html')
+
+def canvas(request):
     return render(request, 'joulukortti/canvas.html')
