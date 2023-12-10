@@ -25,6 +25,9 @@
   <title>Canvas Drawing App with Color Picker</title>
 </head>
 <body>
+    <label for="drawingName">Drawing Name:</label>
+    <input type="text" id="drawingName" name="drawingName" required>
+    <br>
   <canvas id="drawingCanvas" width="800" height="400"></canvas>
   <div id="colorPickerContainer">
     Background Color Picker:
@@ -58,7 +61,9 @@
 
   <button id="downloadBtn">Download Drawing</button>
   <br>
-   <button id="saveBtn">Save Drawing</button>
+   <button id="saveBtn">
+       <a href="{% url 'save_image' %}"> Save Drawing</a>
+   </button>
 
   <!-- Script for Canvas Drawing -->
   <script src="{% static 'js/canvas-drawing.js' %}"></script>
@@ -68,5 +73,8 @@
 
   <!-- Script for Download Functionality -->
   <script src="{% static 'js/download-drawing.js' %}"></script>
+
+    <!-- Script for Save Functionality -->
+    <!--<script src="{% static 'js/save-drawing.js' %}"></script>-->
 </body>
 </html>
