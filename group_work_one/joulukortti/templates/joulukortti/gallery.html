@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+</head>
+<body>
+    <h1>All Christmas Cards</h1>
+    <ul>
+    {% for xmas_card in xmas_cards %}
+        <li>
+            {{ xmas_card.name }}
+            {{ xmas_card.drawing_url}}
+        </li>
+        <img src="{% static xmas_card.drawing_url %}">
+    {% endfor %}
+    </ul>
+</body>
+</html>
