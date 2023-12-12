@@ -9,9 +9,16 @@
 {% block title %}Canvas Drawing App with Color Picker{% endblock %}
 
 {% block content %}
-    <label for="drawingName">Drawing Name:</label>
-    <input type="text" id="drawingName" name="drawingName" required>
-    <br>
+<div class="container mt-3">
+    <div class="row align-items-center m-3">
+        <div class="col-auto">
+            <label for="drawingName" class="col-form-label">Drawing Name:</label>
+        </div>
+        <div class="col-5">
+            <input type="text" class="form-control" id="drawingName" name="drawingName" required>
+        </div>
+    </div>
+
   <canvas id="drawingCanvas" width="800" height="400"></canvas>
   <div id="colorPickerContainer">
     Background Color Picker:
@@ -43,11 +50,13 @@
     <div class="line-color colorSwatch" style="background-color: #008000" data-color="#008000"></div>
   </div>
 
-  <button id="downloadBtn">Download Drawing</button>
-  <br>
-   <button id="saveDrawing" data-url="{% url 'save_drawing' %}">
+    <button id="downloadBtn" class="btn btn-primary m-2">Download Drawing</button>
+
+    <button id="saveDrawing" data-url="{% url 'save_drawing' %}" class="btn btn-secondary m-2">
        Save Drawing
-   </button>
+    </button>
+</div>
+
 
   <!-- Script for Canvas Drawing -->
   <script src="{% static 'js/canvas-drawing.js' %}"></script>
