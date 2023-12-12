@@ -1,8 +1,16 @@
+from django.contrib.auth.models import User
+import json
 from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
-from joulukortti.models import XmasCard
+import os
+from django.core.files import File
+import base64
+import uuid
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.base import ContentFile
+from .models import XmasCard
 
 
 def home(request):
@@ -14,3 +22,50 @@ def canvas(request):
 def gallery(request):
     xmas_cards = XmasCard.objects.all()
     return render(request, 'joulukortti/gallery.html', {'xmas_cards': xmas_cards})
+
+
+@csrf_exempt
+def save_drawing(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            name = data['name']
+            image_data = data['image']
+
+            # Decode the base64 image
+            format, imgstr = image_data.split(';base64,')
+            ext = format.split('/')[-1]
+
+            # Use the drawing's name for the file name, replacing spaces with underscores and adding the extension
+            filename = f"{name.replace(' ', '_')}.{ext}"
+
+            # Ensure filename uniqueness to avoid overwriting existing files
+            filename = get_unique_filename(filename)
+
+            image = ContentFile(base64.b64decode(imgstr), name=filename) # name=f'{uuid.uuid4()}.{ext}'
+
+            # For simplicity, create a user if it doesn't exist
+            user, created = User.objects.get_or_create(username='December') # Replace with appropriate username
+
+            # Create a new XmasCard instance
+            xmas_card = XmasCard(name=name, drawing=image, user=user)
+            xmas_card.save()
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({'status': 'error'}, status=400)
+
+def get_unique_filename(filename):
+    """
+    Generates a unique filename by appending a counter to the filename
+    if a file with the same name already exists.
+    """
+    original_filename = filename
+    counter = 1
+    while os.path.exists(os.path.join('/', filename)):  # Replace with your media directory
+        name, ext = os.path.splitext(original_filename)
+        filename = f"{name}_{counter}{ext}"
+        counter += 1
+    return filename

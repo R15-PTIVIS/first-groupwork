@@ -7,14 +7,16 @@
 </head>
 <body>
     <h1>All Christmas Cards</h1>
-    <ul>
-    {% for xmas_card in xmas_cards %}
-        <li>
-            {{ xmas_card.name }}
-            {{ xmas_card.drawing_url}}
-        </li>
-        <img src="{% static xmas_card.drawing_url %}">
+    {% for card in xmas_cards %}
+        <div>
+            <h3>{{ card.name }}</h3>
+            <p>Created on: {{ card.date_created }}</p>
+            {% if card.drawing %}
+                <img src="{{ card.drawing.url }}" alt="{{ card.name }} Drawing">
+            {% else %}
+                <p>No drawing available</p>
+            {% endif %}
+        </div>
     {% endfor %}
-    </ul>
 </body>
 </html>
