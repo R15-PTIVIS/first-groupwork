@@ -5,17 +5,24 @@
 {% block title %}Gallery{% endblock %}
 
 {% block content %}
+<div class="container">
     <h1>Welcome to Gallery</h1>
     <h2>All Christmas Cards</h2>
+    <div class="row">
     {% for card in xmas_cards %}
+        <div class="col-6">
         <div>
             <h3>{{ card.name }}</h3>
             <p>Created on: {{ card.date_created }}</p>
             {% if card.drawing %}
-                <img src="{{ card.drawing.url }}" alt="{{ card.name }} Drawing">
+                <img src="{{ card.drawing.url }}" alt="{{ card.name }} Drawing" class="img-fluid mb-5">
             {% else %}
                 <p>No drawing available</p>
             {% endif %}
         </div>
+        </div>
     {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

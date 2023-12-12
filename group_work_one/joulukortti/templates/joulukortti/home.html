@@ -5,14 +5,16 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
+<div class="container mt-5">
     <h1>Welcome to the Home Page</h1>
-    <button>
-    <a href="{% url 'canvas' %}">Proceed as a guest (Go to Canvas)</a>
-    </button>
+    <a href="{% url 'canvas' %}" class="btn btn-primary mb-1">
+        Proceed as a guest (Go to Canvas)
+    </a>
+    <br>
+    <a href="{% url 'gallery' %}" class="btn btn-info mb-1">
+        Go to Gallery
+    </a>
         <br>
-    <button>
-        <a href="{% url 'gallery' %}">Go to Gallery</a>
-    </button>
-        <br>
-    <button>Go through registration</button>
+    <button class="btn btn-secondary">Go through registration</button>
+</div>
 {% endblock %}
