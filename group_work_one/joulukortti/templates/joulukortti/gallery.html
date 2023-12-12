@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Gallery</title>
-</head>
-<body>
-    <h1>All Christmas Cards</h1>
+<!-- gallery.html -->
+{% extends 'joulukortti/base.html' %}
+{% load static %}
+
+{% block title %}Gallery{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Gallery</h1>
+    <h2>All Christmas Cards</h2>
     {% for card in xmas_cards %}
         <div>
             <h3>{{ card.name }}</h3>
@@ -18,5 +18,4 @@
             {% endif %}
         </div>
     {% endfor %}
-</body>
-</html>
+{% endblock %}

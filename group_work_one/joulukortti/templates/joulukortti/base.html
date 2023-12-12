@@ -1,0 +1,31 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Django App{% endblock %}</title>
+    {% load static %}
+
+        <!-- Block for additional CSS -->
+    {% block extra_css %}{% endblock %}
+    <!-- Common CSS, JavaScript, etc. -->
+</head>
+<body>
+    <header>
+        <!-- Site header content -->
+    </header>
+
+    <nav>
+        <!-- Navigation bar -->
+    </nav>
+
+    <main>
+        {% block content %}
+        <!-- Default content (can be empty) -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Site footer content -->
+    </footer>
+</body>
+</html>
