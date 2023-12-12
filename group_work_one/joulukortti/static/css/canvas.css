@@ -1,0 +1,16 @@
+    canvas {
+      border: 1px solid #000;
+    }
+
+    #colorPickerContainer {
+      margin-top: 10px;
+    }
+
+    .colorSwatch {
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      border: 1px solid #000;
+      display: inline-block;
+    }

@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Starting page</title>
-</head>
-<body>
+<!-- home.html -->
+{% extends 'joulukortti/base.html' %}
+{% load static %}
 
-<button>
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Home Page</h1>
+    <button>
     <a href="{% url 'canvas' %}">Proceed as a guest (Go to Canvas)</a>
-</button>
-<br>
-<button>
-    <a href="{% url 'gallery' %}">Go to Gallery</a>
-</button>
-<br>
-<button>Go through registration</button>
-
-<!--<img src="{% static 'cardStorage/drawing_1.png' %}">-->
-
-</body>
-</html>
+    </button>
+        <br>
+    <button>
+        <a href="{% url 'gallery' %}">Go to Gallery</a>
+    </button>
+        <br>
+    <button>Go through registration</button>
+{% endblock %}

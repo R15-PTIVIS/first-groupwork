@@ -1,30 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    canvas {
-      border: 1px solid #000;
-    }
+<!-- canvas.html -->
+{% extends 'joulukortti/base.html' %}
+{% load static %}
 
-    #colorPickerContainer {
-      margin-top: 10px;
-    }
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/canvas.css' %}">
+{% endblock %}
 
-    .colorSwatch {
-      width: 20px;
-      height: 20px;
-      margin: 0 5px;
-      cursor: pointer;
-      border: 1px solid #000;
-      display: inline-block;
-    }
-  </style>
-  <title>Canvas Drawing App with Color Picker</title>
-</head>
-<body>
+{% block title %}Canvas Drawing App with Color Picker{% endblock %}
+
+{% block content %}
     <label for="drawingName">Drawing Name:</label>
     <input type="text" id="drawingName" name="drawingName" required>
     <br>
@@ -76,5 +60,4 @@
 
     <!-- Script for Save Functionality -->
     <script src="{% static 'js/save-drawing.js' %}"></script>
-</body>
-</html>
+{% endblock %}
