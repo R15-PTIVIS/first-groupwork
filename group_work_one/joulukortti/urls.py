@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('canvas/', views.canvas, name='canvas'),
     path('gallery/', views.gallery, name='gallery'),
-    path('save_image/', views.save_image, name='save_image'),
+    path('save_drawing/', views.save_drawing, name='save_drawing')
 ]

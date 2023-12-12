@@ -1,16 +1,16 @@
 from django.contrib.auth.models import User
+import json
 from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
-from joulukortti.models import XmasCard
+import os
+from django.core.files import File
+import base64
+import uuid
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.files.base import ContentFile
 from .models import XmasCard
-
-import os
-import base64
-from django.core.files import File
 
 
 def home(request):
@@ -23,44 +23,49 @@ def gallery(request):
     xmas_cards = XmasCard.objects.all()
     return render(request, 'joulukortti/gallery.html', {'xmas_cards': xmas_cards})
 
+
+@csrf_exempt
 def save_drawing(request):
     if request.method == 'POST':
-        data = request.json()
-        name = data.get('name')
-        image_data = data.get('image_data')
+        try:
+            data = json.loads(request.body)
+            name = data['name']
+            image_data = data['image']
 
-        # For simplicity, create a user if it doesn't exist
-        user, created = User.objects.get_or_create(username='December')
+            # Decode the base64 image
+            format, imgstr = image_data.split(';base64,')
+            ext = format.split('/')[-1]
 
-        # Create a new XmasCard object and save it to the database
-        xmas_card = XmasCard(name=name, drawing=image_data, user=user)
-        xmas_card.save()
+            # Use the drawing's name for the file name, replacing spaces with underscores and adding the extension
+            filename = f"{name.replace(' ', '_')}.{ext}"
 
-        return JsonResponse({'status': 'success'})
-    else:
-        return JsonResponse({'status': 'error'})
+            # Ensure filename uniqueness to avoid overwriting existing files
+            filename = get_unique_filename(filename)
 
-def save_image(request):
-    # Specify the path to your PNG image file
-    image_path = "joulukortti/static/drawing.png"
-
-    # Check if the file exists
-    if os.path.exists(image_path):
-        # Open the image file
-        with open(image_path, 'rb') as image_file:
-            # Create a File object from the image data
-            image_data = File(image_file)
+            image = ContentFile(base64.b64decode(imgstr), name=filename) # name=f'{uuid.uuid4()}.{ext}'
 
             # For simplicity, create a user if it doesn't exist
-            user, created = User.objects.get_or_create(username='December')
+            user, created = User.objects.get_or_create(username='December') # Replace with appropriate username
 
-            # Create a new XmasCard object and save it to the database
-            xmas_card = XmasCard(name='TestCard', drawing=image_data, user=user)
+            # Create a new XmasCard instance
+            xmas_card = XmasCard(name=name, drawing=image, user=user)
             xmas_card.save()
 
-            # Move the file cursor to the beginning of the file
-            image_file.seek(0)
-
-        return JsonResponse({'status': 'success'})
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     else:
-        return JsonResponse({'status': 'error', 'message': 'Image file not found'})
+        return JsonResponse({'status': 'error'}, status=400)
+
+def get_unique_filename(filename):
+    """
+    Generates a unique filename by appending a counter to the filename
+    if a file with the same name already exists.
+    """
+    original_filename = filename
+    counter = 1
+    while os.path.exists(os.path.join('/', filename)):  # Replace with your media directory
+        name, ext = os.path.splitext(original_filename)
+        filename = f"{name}_{counter}{ext}"
+        counter += 1
+    return filename

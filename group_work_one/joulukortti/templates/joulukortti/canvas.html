@@ -61,8 +61,8 @@
 
   <button id="downloadBtn">Download Drawing</button>
   <br>
-   <button id="saveBtn">
-       <a href="{% url 'save_image' %}"> Save Drawing</a>
+   <button id="saveDrawing" data-url="{% url 'save_drawing' %}">
+       Save Drawing
    </button>
 
   <!-- Script for Canvas Drawing -->
@@ -75,6 +75,6 @@
   <script src="{% static 'js/download-drawing.js' %}"></script>
 
     <!-- Script for Save Functionality -->
-    <!--<script src="{% static 'js/save-drawing.js' %}"></script>-->
+    <script src="{% static 'js/save-drawing.js' %}"></script>
 </body>
 </html>
