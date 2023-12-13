@@ -14,3 +14,39 @@
       border: 1px solid #000;
       display: inline-block;
     }
+
+    .dropMenu
+    {
+        position:relative;
+        display:inline-block;
+        margin: 0 7px;
+    }
+
+    .dropMenuBtn
+    {
+        padding:10px;
+        background-color:aqua;
+        border:none;
+        border-radius:5px;
+    }
+
+    .dropMenuContent
+    {
+        display:none;
+        position:absolute;
+        background-color:lightgray;
+        border-radius:5px;
+    }
+
+    .dropMenuContent button 
+    {
+        background-color:lightgray;
+        padding:6px;
+        border:none;
+        border-radius:5px;
+    }
+
+    .dropMenu:hover .dropMenuContent {display:block;}
+    .dropMenu:hover .dropMenuBtn {background-color:aquamarine;}
+    .dropMenuContent button:hover {background-color:gray;}
+    
