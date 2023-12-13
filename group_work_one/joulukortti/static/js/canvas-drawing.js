@@ -36,7 +36,7 @@ canvas.addEventListener('mousedown', (e) => {
     //resets previous draw event
     drawInstance = [];
     //initiates this draw instance into the drawInstance stack
-    drawInstance.push({ x: mousePosition.x, y: mousePosition.y, size: size});
+    drawInstance.push({ x: mousePosition.x, y: mousePosition.y, size: size, BGcolor: ctx.fillStyle, brushColor: ctx.strokeStyle });
 });
 
 canvas.addEventListener('mousemove', (e) => {
@@ -69,10 +69,12 @@ function draw()
         ctx.beginPath();
         ctx.moveTo(draw[0].x, draw[0].y);
         ctx.lineWidth = draw[0].size;
+        ctx.strokeStyle = draw[0].brushColor;
         //iterates through the drawStack
         for (let i = 1; i < draw.length; i++)
         {
             ctx.lineWidth = draw[i].size;
+            ctx.strokeStyle = draw[i].brushColor;
             ctx.lineTo(draw[i].x, draw[i].y);
         }
         
