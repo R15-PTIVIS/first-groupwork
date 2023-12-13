@@ -25,51 +25,35 @@
 
         <div class="d-flex flex-column">
             <div class="whiteBackground rounded px-2 pt-2 text-center text-uppercase">Background colors</div>
+
             <div class="whiteBackground p-4 d-inline-block rounded mb-4">
                 <div class="row mb-3">
-                    <div class="col-3 background-color colorSwatch" style="background-color: #000" data-color="#000"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #ff0000" data-color="#ff0000"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #00ff00" data-color="#00ff00"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #0000ff" data-color="#0000ff"></div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-3 background-color colorSwatch" style="background-color: #ffff00" data-color="#ffff00"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #ff00ff" data-color="#ff00ff"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #00ffff" data-color="#00ffff"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #ffa500" data-color="#ffa500"></div>
-                </div>
-                <div class="row">
-                    <div class="col-3 background-color colorSwatch" style="background-color: #808080" data-color="#808080"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #ffffff" data-color="#ffffff"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #a52a2a" data-color="#a52a2a"></div>
-                    <div class="col-3 background-color colorSwatch" style="background-color: #008000" data-color="#008000"></div>
+                {% for color in colors %}
+                    <div class="col-3 background-color colorSwatch" style="background-color: {{ color.hex_value }}" data-color="{{ color.hex_value }}"></div>
+
+                    {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                        </div><div class="row mb-3">
+                    {% endif %}
+                {% endfor %}
                 </div>
             </div>
 
             <div class="whiteBackground rounded px-2 pt-2 text-center text-uppercase">Line colors</div>
-             <div class="whiteBackground p-4 d-inline-block rounded">
+            <div class="whiteBackground p-4 d-inline-block rounded mb-4">
                 <div class="row mb-3">
-                    <div class="col-3 line-color colorSwatch" style="background-color: #000" data-color="#000"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #ff0000" data-color="#ff0000"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #00ff00" data-color="#00ff00"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #0000ff" data-color="#0000ff"></div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-3 line-color colorSwatch" style="background-color: #ffff00" data-color="#ffff00"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #ff00ff" data-color="#ff00ff"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #00ffff" data-color="#00ffff"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #ffa500" data-color="#ffa500"></div>
-                </div>
-                <div class="row">
-                    <div class="col-3 line-color colorSwatch" style="background-color: #808080" data-color="#808080"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #ffffff" data-color="#ffffff"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #a52a2a" data-color="#a52a2a"></div>
-                    <div class="col-3 line-color colorSwatch" style="background-color: #008000" data-color="#008000"></div>
+                {% for color in colors %}
+                    <div class="col-3 line-color colorSwatch" style="background-color: {{ color.hex_value }}" data-color="{{ color.hex_value }}"></div>
+
+                    {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                        </div><div class="row mb-3">
+                    {% endif %}
+                {% endfor %}
                 </div>
             </div>
         </div>
 
-        <div class="ms-3 align-self-end">
+        <div class="ms-3 align-self-end d-flex flex-column">
+            <a class="btn btn-info m-2" href="{% url 'color_list' %}">Modify Colors</a>
             <button id="downloadBtn" class="btn btn-primary m-2">Download Drawing</button>
             {% if user.is_authenticated %}
                 <button id="saveDrawing" data-url="{% url 'save_drawing' %}" class="btn btn-secondary m-2">

@@ -1,0 +1,16 @@
+<!-- Confirm delete -->
+{% extends 'joulukortti/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block title %}Confirm on Delete Color{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p id="confirm">Are you sure you want to delete "{{ object.name }}"?</p>
+    <button type="submit">Confirm</button>
+</form>
+{% endblock %}

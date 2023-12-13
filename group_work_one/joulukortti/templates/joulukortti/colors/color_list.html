@@ -1,0 +1,37 @@
+<!-- List all colors -->
+{% extends 'joulukortti/base.html' %}
+{% load static %}
+
+{% block title %}List of Colors{% endblock %}
+
+{% block content %}
+
+<table class="table" style="width: 50%; margin-left: auto; margin-right: auto;">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Color</th>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for color in object_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>
+                    <div style="width: 30px; height: 30px; background-color: {{ color.hex_value }};"></div>
+                </td>
+                <td class="fw-bold text-uppercase">{{ color.name }}</td>
+                <td>
+                    <a href="{% url 'color_edit' color.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'color_delete' color.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="p-3" style="display: flex; justify-content: center;">
+<a href="{% url 'color_add' %}" class="btn btn-success btn-sm">Add New Color</a>
+</div>
+{% endblock %}

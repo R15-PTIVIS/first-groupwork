@@ -25,7 +25,7 @@
             </a>
             <div class="navbar-nav">
                 {% if request.path != '/' %}
-                <a href="{% url 'home' %}" class="nav-link active text-uppercase fw-bold rounded" aria-current="page">Go to Home</a>&nbsp;
+                <a href="{% url 'home' %}" class="nav-link active text-uppercase fw-bold rounded" aria-current="page">Go Home</a>&nbsp;
                 {% endif %}
 
                 {% if user.is_authenticated %}
