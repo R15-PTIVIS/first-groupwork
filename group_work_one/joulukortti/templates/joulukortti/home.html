@@ -6,7 +6,13 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Welcome to the Home Page</h1>
+    <h1>Welcome to the Home Page,
+    {% if user.is_authenticated %}
+    {{ user.username }}!
+    {% else %}
+        Guest!
+    {% endif %}
+    </h1>
     <a href="{% url 'canvas' %}" class="btn btn-primary mb-1">
         {% if user.is_authenticated %}
             Go to Canvas
@@ -20,14 +26,13 @@
     </a>
         <br>
     {% if user.is_authenticated %}
-        Hello {{ user.username }}
         <form action="{% url 'users:logout' %}" method='post'>
             {% csrf_token %}
             <button class="btn btn-secondary">Log out</button>
         </form>
     {% else %}
         <a href="{% url 'users:register' %}">
-            <button class="btn btn-secondary">Register</button>
+            <button class="btn btn-secondary mb-1">Register</button>
         </a>
         <br>    
         <a href="{% url 'users:login' %}">
