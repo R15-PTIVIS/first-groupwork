@@ -8,14 +8,17 @@
 <div class="container">
     <h1>Welcome to Gallery</h1>
     <h2>All Christmas Cards</h2>
+    <a>Click on an image to dowload it</a>
     <div class="row">
     {% for card in xmas_cards %}
         <div class="col-6">
         <div>
-            <h3>{{ card.name }}</h3>
+            <h3>{{ card.name }}</h4>
             <p>Created on: {{ card.date_created }}</p>
             {% if card.drawing %}
-                <img src="{{ card.drawing.url }}" alt="{{ card.name }} Drawing" class="img-fluid mb-5">
+                <a href="{{ card.drawing.url }}" download>
+                    <img src="{{ card.drawing.url }}" alt="{{ card.name }} Drawing" class="img-fluid mb-5">
+                </a>
             {% else %}
                 <p>No drawing available</p>
             {% endif %}
