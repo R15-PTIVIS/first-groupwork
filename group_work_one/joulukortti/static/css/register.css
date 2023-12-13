@@ -1,0 +1,44 @@
+/* This styles each paragraph (which contains a label and an input) */
+form {
+    width: 40%;
+    margin: 100px auto 0; /* Adjust the top margin as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+/* This styles the input fields */
+form p input {
+    width: 60%; /* Adjust this value as needed */
+    padding: 5px; /* Adjust padding for better look */
+}
+
+/* This styles the labels */
+form p label {
+    width: 35%; /* Adjust this value as needed */
+    margin-right: 5%; /* Space between label and input */
+    text-align: left; /* Align the text to the left */
+}
+
+/* Styling for the submit button */
+form button {
+    width: 20%;
+    margin: 0px auto 0; /* Adjust the top margin as needed */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 12px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease 0s; /* Smooth transition for hover effect */
+}
+
+form button:hover {
+    background-color: #45a049; /* Darker shade of green when hovered */
+}
+
+.helptext {
+    display: block;
+    font-style: italic;
+    font-color: green;
+}
