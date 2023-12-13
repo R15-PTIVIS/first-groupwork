@@ -22,7 +22,8 @@ def home(request):
     return render(request, 'joulukortti/home.html')
 
 def canvas(request):
-    return render(request, 'joulukortti/canvas.html')
+    colors = Color.objects.all()  # Get all color objects from the database
+    return render(request, 'joulukortti/canvas.html', {'colors': colors})
 
 @login_required
 def gallery(request):
