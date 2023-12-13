@@ -6,13 +6,14 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Welcome to the Home Page,
+    <h1 class="whiteBackground p-3 rounded d-inline-block">Welcome to the Home Page,
     {% if user.is_authenticated %}
     {{ user.username }}!
     {% else %}
         Guest!
     {% endif %}
     </h1>
+    <br>
     <a href="{% url 'canvas' %}" class="btn btn-primary mb-1">
         {% if user.is_authenticated %}
             Go to Canvas
