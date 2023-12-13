@@ -11,3 +11,10 @@ class XmasCard(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+class Color(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    hex_value = models.CharField(max_length=7)  # To store values like '#ffffff'
+
+    def __str__(self):
+        return self.name

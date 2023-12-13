@@ -69,7 +69,8 @@
             </div>
         </div>
 
-        <div class="ms-3 align-self-end">
+        <div class="ms-3 align-self-end d-flex flex-column">
+            <a class="btn btn-info m-2" href="{% url 'color_list' %}">Modify Colors</a>
             <button id="downloadBtn" class="btn btn-primary m-2">Download Drawing</button>
             {% if user.is_authenticated %}
                 <button id="saveDrawing" data-url="{% url 'save_drawing' %}" class="btn btn-secondary m-2">

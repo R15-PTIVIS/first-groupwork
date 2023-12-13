@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Color
 
 import json
 from django.http import HttpResponse
@@ -72,3 +75,24 @@ def get_unique_filename(filename):
         filename = f"{name}_{counter}{ext}"
         counter += 1
     return filename
+
+class ColorListView(ListView):
+    model = Color
+    template_name = 'joulukortti/colors/color_list.html'
+
+class ColorCreateView(CreateView):
+    model = Color
+    fields = ['name', 'hex_value']
+    template_name = 'joulukortti/colors/color_form.html'
+    success_url = reverse_lazy('color_list')
+
+class ColorUpdateView(UpdateView):
+    model = Color
+    fields = ['name', 'hex_value']
+    template_name = 'joulukortti/colors/color_form.html'
+    success_url = reverse_lazy('color_list')
+
+class ColorDeleteView(DeleteView):
+    model = Color
+    template_name = 'joulukortti/colors/color_confirm_delete.html'
+    success_url = reverse_lazy('color_list')
