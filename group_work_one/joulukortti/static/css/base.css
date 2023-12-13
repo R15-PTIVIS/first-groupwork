@@ -1,0 +1,19 @@
+body {
+    background-image: url('../snowflakes.avif'); /* Replace with your image path */
+    background-size: cover; /* Cover the entire page */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Optional: Fixes the background image during scroll */
+    background-position: center; /* Center the image */
+}
+
+.navbar {
+background: transparent !important;
+}
+
+.nav-link {
+    background-color: #fff !important; /* Or any color that contrasts well with your page background */
+}
+
+    .whiteBackground {
+    background-color: white;
+    }

@@ -2,10 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
      <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <title>{% block title %}My Django App{% endblock %}</title>
-    {% load static %}
+
 
         <!-- Block for additional CSS -->
     {% block extra_css %}{% endblock %}
@@ -19,11 +21,11 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{% static 'logo.png' %}" alt="Logo" height="70"> <!-- Adjust height as needed -->
+                <img src="{% static 'lg.jpg' %}" alt="Logo" height="100"> <!-- Adjust height as needed -->
             </a>
             <div class="navbar-nav">
                 {% if request.path != '/' %}
-                <a href="{% url 'home' %}" class="nav-link active text-uppercase fw-bold" aria-current="page">Go to Home</a>
+                <a href="{% url 'home' %}" class="nav-link active text-uppercase fw-bold rounded" aria-current="page">Go to Home</a>&nbsp;
                 {% endif %}
 
                 {% if user.is_authenticated %}
@@ -33,6 +35,7 @@
                 </form>
                 {% else %}
                     <a class="nav-link text-uppercase fw-bold" href="{% url 'users:register' %}">Register</a>
+                &nbsp;
                     <a class="nav-link text-uppercase fw-bold" href="{% url 'users:login' %}">Log in</a>
                 {% endif %}
             </div>
