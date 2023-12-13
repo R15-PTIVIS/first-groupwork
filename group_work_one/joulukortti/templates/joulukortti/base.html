@@ -16,8 +16,19 @@
         <!-- Site header content -->
     </header>
 
-    <nav>
-        <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'logo.png' %}" alt="Logo" height="70"> <!-- Adjust height as needed -->
+            </a>
+            <div class="navbar-nav">
+                {% if request.path != '/' %}
+                <a href="{% url 'home' %}" class="nav-link active" aria-current="page">Go to Home</a>
+                {% endif %}
+                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#">Pricing</a>
+            </div>
+        </div>
     </nav>
 
     <main>
