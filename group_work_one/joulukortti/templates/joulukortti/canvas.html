@@ -51,10 +51,11 @@
   </div>
 
     <button id="downloadBtn" class="btn btn-primary m-2">Download Drawing</button>
-
-    <button id="saveDrawing" data-url="{% url 'save_drawing' %}" class="btn btn-secondary m-2">
-       Save Drawing
-    </button>
+    {% if user.is_authenticated %}
+        <button id="saveDrawing" data-url="{% url 'save_drawing' %}" class="btn btn-secondary m-2">
+        Save Drawing
+        </button>
+    {% endif %}
 </div>
 
 

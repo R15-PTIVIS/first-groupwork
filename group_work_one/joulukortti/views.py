@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 import json
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -19,6 +21,7 @@ def home(request):
 def canvas(request):
     return render(request, 'joulukortti/canvas.html')
 
+@login_required
 def gallery(request):
     xmas_cards = XmasCard.objects.all()
     return render(request, 'joulukortti/gallery.html', {'xmas_cards': xmas_cards})
