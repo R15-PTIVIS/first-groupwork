@@ -8,13 +8,31 @@
 <div class="container mt-5">
     <h1>Welcome to the Home Page</h1>
     <a href="{% url 'canvas' %}" class="btn btn-primary mb-1">
-        Proceed as a guest (Go to Canvas)
+        {% if user.is_authenticated %}
+            Go to Canvas
+        {% else %}
+            Proceed as a guest (Go to Canvas)
+        {% endif %}
     </a>
     <br>
     <a href="{% url 'gallery' %}" class="btn btn-info mb-1">
         Go to Gallery
     </a>
         <br>
-    <button class="btn btn-secondary">Go through registration</button>
+    {% if user.is_authenticated %}
+        Hello {{ user.username }}
+        <form action="{% url 'users:logout' %}" method='post'>
+            {% csrf_token %}
+            <button class="btn btn-secondary">Log out</button>
+        </form>
+    {% else %}
+        <a href="{% url 'users:register' %}">
+            <button class="btn btn-secondary">Register</button>
+        </a>
+        <br>    
+        <a href="{% url 'users:login' %}">
+            <button class="btn btn-secondary">Log in</button>
+        </a>
+    {% endif %}
 </div>
 {% endblock %}
