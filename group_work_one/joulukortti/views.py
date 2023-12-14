@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Color
@@ -26,7 +27,8 @@ def canvas(request):
     if request.user.is_authenticated:
         colors = request.user.color_set.all()  # Get colors specific to the user
     else:
-        colors = Color.objects.all()  # Get all color objects for unauthenticated users
+        # Get all unique color objects for unauthenticated users
+        colors = Color.objects.values('hex_value').annotate(count=Count('id')).order_by()
     return render(request, 'joulukortti/canvas.html', {'colors': colors})
 
 @login_required
