@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Color
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 import json
 from django.http import HttpResponse
@@ -22,7 +23,10 @@ def home(request):
     return render(request, 'joulukortti/home.html')
 
 def canvas(request):
-    colors = Color.objects.all()  # Get all color objects from the database
+    if request.user.is_authenticated:
+        colors = request.user.color_set.all()  # Get colors specific to the user
+    else:
+        colors = Color.objects.all()  # Get all color objects for unauthenticated users
     return render(request, 'joulukortti/canvas.html', {'colors': colors})
 
 @login_required
@@ -77,23 +81,43 @@ def get_unique_filename(filename):
         counter += 1
     return filename
 
-class ColorListView(ListView):
+class ColorListView(LoginRequiredMixin, ListView):
     model = Color
     template_name = 'joulukortti/colors/color_list.html'
 
-class ColorCreateView(CreateView):
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Color.objects.filter(users=self.request.user)
+        else:
+            return Color.objects.none()
+
+class ColorCreateView(LoginRequiredMixin, CreateView):
     model = Color
     fields = ['name', 'hex_value']
     template_name = 'joulukortti/colors/color_form.html'
     success_url = reverse_lazy('color_list')
 
-class ColorUpdateView(UpdateView):
+    def form_valid(self, form):
+        color = form.save(commit=False)
+        color.save()
+        color.users.add(self.request.user)  # Link color to the current user
+        return super().form_valid(form)
+
+class ColorUpdateView(LoginRequiredMixin, UpdateView):
     model = Color
     fields = ['name', 'hex_value']
     template_name = 'joulukortti/colors/color_form.html'
     success_url = reverse_lazy('color_list')
 
-class ColorDeleteView(DeleteView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(users=self.request.user)
+
+class ColorDeleteView(LoginRequiredMixin, DeleteView):
     model = Color
     template_name = 'joulukortti/colors/color_confirm_delete.html'
     success_url = reverse_lazy('color_list')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(users=self.request.user)
